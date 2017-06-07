@@ -3346,8 +3346,8 @@
   };
   function markState(e){
       if(typeof _403List[e] != "undefined" || typeof _609List[e] != "undefined")
-        return true;
-      return false;
+        return e;
+      return 0;
   };
   var path = d3.geoPath();
   var color = [
@@ -3368,7 +3368,8 @@
     .enter().append("path")
     .attr("d", path)
     .attr("fill",function(d){return getState(d.id,trigger)})
-    .attr("class",function(d){return ("counties"+ (markState(d.id) ? " target":""))});
+    .attr("class",function(d){return ("counties"+ (markState(d.id)!=0 ? " target":""))})
+    .attr("id",function(d){return d.id});
     svg.on("click",function(){
       if(trigger==403){
         trigger = 609;
