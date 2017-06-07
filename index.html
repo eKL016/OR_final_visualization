@@ -22,12 +22,12 @@
 <script src="./609.js"></script>
 <script>
 
-  var trigger = 403;
+  var trigger = 0;
   var svg = d3.select("svg");
   
   
   function getState(county,listType) {
-    if(listType===403 && typeof _403List[county] != "undefined") {
+    if(listType===0 && typeof _403List[county] != "undefined") {
       switch(_403List[county].State) {
         case 1:
           return color[0];
@@ -37,15 +37,11 @@
           return color[2];
         case 4:
           return color[3];
-        case 5:
-          return color[4];
-        case 6:
-          return color[5];
         default:
           return "#d9d9d9";
       };   
     }
-    else if(listType===609 && typeof _609List[county] != "undefined"){
+    else if(listType===1 && typeof _609List[county] != "undefined"){
       switch(_609List[county].State) {
         case 1:
           return color[0];
@@ -63,6 +59,40 @@
           return "#d9d9d9";
       };
     }
+    else if(listType === 2 ){
+      	if(typeof _403List[county] != "undefined"){
+      		switch(_403List[county].State) {
+		        case 1:
+		          return "#4083b4";
+		        case 2:
+		          return "#bc4343";
+		        case 3:
+		          return "#df9fa0";
+		        case 4:
+		          return "#b7d3e8";
+		        default:
+		          return "#5a98c5";
+      		}
+      	}
+      	else if(typeof _609List[county] != "undefined"){
+      		switch(_609List[county].State) {
+		        case 1:
+		          return "#d48081";
+		        case 2:
+		          return "#97bfdc";
+		        case 3:
+		          return "#c86162";
+		        case 4:
+		          return "#70aacf";
+		        case 5:
+		          return "#eabfbf"
+		        case 6:
+		          return "#d7e7f2"
+		        default:
+		          return "#d9d9d9";
+      		};
+    	}
+	}
     else return "#d9d9d9";
   };
   function markState(e){
@@ -97,19 +127,11 @@
     	else if(typeof _609List[d.id] != "undefined") console.log("State: "+_609List[d.id].State);
     });
     svg.on("click",function(){
-      if(trigger==403){
-        trigger = 609;
-        svg.transition().selectAll(".target").duration(750).attr("fill",function(d){ //Transition!
-            return getState(d.id,trigger);
-        });
-      }
-      else{
-        trigger = 403;
-        svg.transition().selectAll(".target").duration(750).attr("fill",function(d){ //Transition!
-            return getState(d.id,trigger);
+    	trigger = (trigger+1)%3;
+        svg.transition().selectAll(".target").duration(750).attr("fill",function(d){
+            	return getState(d.id,trigger);
         });  
-      };
-    });
+      });
     svg.append("path")
     .attr("class", "county-borders")
     .attr("d", path(topojson.mesh(us, us.objects.counties, function(a, b) { return a !== b; })));
