@@ -2,7 +2,7 @@
 <style>
 
   .counties :hover {
-    fill: red;
+    opacity:0.5;
   }
 
   .county-borders {
@@ -63,13 +63,13 @@
       	if(typeof _403List[county] != "undefined"){
       		switch(_403List[county].State) {
 		        case 1:
-		          return "#4083b4";
-		        case 2:
 		          return "#bc4343";
-		        case 3:
-		          return "#df9fa0";
-		        case 4:
+		        case 2:
 		          return "#b7d3e8";
+		        case 3:
+		          return "#4083b4";
+		        case 4:
+		          return "#df9fa0";
 		        default:
 		          return "#5a98c5";
       		}
@@ -77,17 +77,17 @@
       	else if(typeof _609List[county] != "undefined"){
       		switch(_609List[county].State) {
 		        case 1:
-		          return "#d48081";
-		        case 2:
 		          return "#97bfdc";
+		        case 2:
+		          return "#d48081";
 		        case 3:
-		          return "#c86162";
-		        case 4:
 		          return "#70aacf";
+		        case 4:
+		          return "#c86162";
 		        case 5:
-		          return "#eabfbf"
-		        case 6:
 		          return "#d7e7f2"
+		        case 6:
+		          return "#eabfbf"
 		        default:
 		          return "#d9d9d9";
       		};
